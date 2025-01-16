@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,6 +31,17 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::resource('unit', UnitController::class)
+        ->except(['show'])
+        ->names([
+            'index' => 'unit.index',
+            'create' => 'unit.create',
+            'store' => 'unit.store',
+            'edit' => 'unit.edit',
+            'update' => 'unit.update',
+            'destroy' => 'unit.destroy',
+        ]);
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
