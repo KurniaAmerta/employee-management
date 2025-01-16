@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Models\Unit;
+use App\Models\Jabatan;
 
-class UnitController extends Controller
+class JabatanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): Response
     {
-        $units = Unit::all()->map(function ($unit) {
-            $unit->created_at_formatted = $unit->created_at->format('F j, Y'); // Example: "January 16, 2025"
-            return $unit;
+        $jabatans = Jabatan::all()->map(function ($jabatan) {
+            $jabatan->created_at_formatted = $jabatan->created_at->format('F j, Y'); // Example: "January 16, 2025"
+            return $jabatan;
         });
-        return Inertia::render('Unit/Index', [ 'units' => $units ]);
+        return Inertia::render('Jabatan/Index', [ 'jabatans' => $jabatans ]);
     }
 
     /**
@@ -26,7 +26,7 @@ class UnitController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Unit/Create');
+        return Inertia::render('Jabatan/Create');
     }
 
     /**
@@ -39,14 +39,14 @@ class UnitController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        // Create a new Unit instance
-        $unit = Unit::create([
+        // Create a new Jabatan instance
+        $jabatan = Jabatan::create([
             'name' => $request->name,
         ]);
 
         session()->flash('success', 'Password updated successfully!');
     
-        return redirect()->route('unit.index');
+        return redirect()->route('jabatan.index');
     }
 
     /**
@@ -54,8 +54,8 @@ class UnitController extends Controller
      */
     public function edit(string $id)
     {
-        $unit = Unit::findOrFail($id);
-        return Inertia::render('Unit/Edit', [ 'unit' => $unit ]);
+        $jabatan = Jabatan::findOrFail($id);
+        return Inertia::render('Jabatan/Edit', [ 'jabatan' => $jabatan ]);
     }
 
     /**
@@ -67,13 +67,13 @@ class UnitController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
-        $unit = Unit::findOrFail($id);
-        $unit->update([
+        $jabatan = Jabatan::findOrFail($id);
+        $jabatan->update([
             'name' => $request->name,
         ]);
 
-        session()->flash('success', 'Unit updated successfully!');
-        return redirect()->route('unit.index');
+        session()->flash('success', 'Jabatan updated successfully!');
+        return redirect()->route('jabatan.index');
     }
 
     /**
@@ -81,10 +81,10 @@ class UnitController extends Controller
      */
     public function destroy(string $id)
     {
-        $unit = Unit::findOrFail($id);
-        $unit->delete();
+        $jabatan = Jabatan::findOrFail($id);
+        $jabatan->delete();
 
-        session()->flash('success', 'Unit deleted successfully!');
-        return redirect()->route('unit.index');
+        session()->flash('success', 'Jabatan deleted successfully!');
+        return redirect()->route('jabatan.index');
     }
 }

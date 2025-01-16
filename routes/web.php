@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\JabatanController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -40,6 +41,17 @@ Route::middleware('auth')->group(function () {
             'edit' => 'unit.edit',
             'update' => 'unit.update',
             'destroy' => 'unit.destroy',
+        ]);
+
+    Route::resource('jabatan',JabatanController::class)
+        ->except(['show'])
+        ->names([
+            'index' => 'jabatan.index',
+            'create' => 'jabatan.create',
+            'store' => 'jabatan.store',
+            'edit' => 'jabatan.edit',
+            'update' => 'jabatan.update',
+            'destroy' => 'jabatan.destroy',
         ]);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
