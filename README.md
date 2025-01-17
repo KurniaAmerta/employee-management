@@ -72,7 +72,7 @@ Before setting up the project, make sure you have the following installed:
 The `EmployeeSeeder` populates the database with sample employee data. This is useful for testing and development purposes.
 
 ### LoginSeeder
-The `LoginSeeder` creates default log login. . This is useful for testing and development purposes.
+The `LoginSeeder` creates default log login. This is useful for testing and development purposes.
 
 ## Default Login Credentials
 After running the `LoginSeeder`, you can log in using the default credentials:
