@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,6 +33,17 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::resource('employee', EmployeeController::class)
+        ->except(['show'])
+        ->names([
+            'index' => 'employee.index',
+            'create' => 'employee.create',
+            'store' => 'employee.store',
+            'edit' => 'employee.edit',
+            'update' => 'employee.update',
+            'destroy' => 'employee.destroy',
+        ]);
+
     Route::resource('unit', UnitController::class)
         ->except(['show'])
         ->names([

@@ -15,7 +15,7 @@ class UnitController extends Controller
     public function index(): Response
     {
         $units = Unit::all()->map(function ($unit) {
-            $unit->created_at_formatted = $unit->created_at->format('F j, Y'); // Example: "January 16, 2025"
+            $unit->created_at_formatted = $unit->created_at->format('F j, Y');
             return $unit;
         });
         return Inertia::render('Unit/Index', [ 'units' => $units ]);

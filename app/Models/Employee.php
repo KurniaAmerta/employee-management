@@ -20,6 +20,9 @@ class Employee extends Authenticatable
     protected $fillable = [
         'name',
         'username',
+        'dateJoined',
+        'unit_id',
+        'username_verified_at',
         'password',
     ];
 
@@ -42,4 +45,14 @@ class Employee extends Authenticatable
         'username_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+     public function unit()
+     {
+        return $this->belongsTo(Unit::class);
+     }
+ 
+     public function jabatans()
+     {
+        return $this->belongsToMany(Jabatan::class, 'jabatan_employees');
+     }
 }

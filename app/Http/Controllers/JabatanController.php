@@ -15,7 +15,7 @@ class JabatanController extends Controller
     public function index(): Response
     {
         $jabatans = Jabatan::all()->map(function ($jabatan) {
-            $jabatan->created_at_formatted = $jabatan->created_at->format('F j, Y'); // Example: "January 16, 2025"
+            $jabatan->created_at_formatted = $jabatan->created_at->format('F j, Y');
             return $jabatan;
         });
         return Inertia::render('Jabatan/Index', [ 'jabatans' => $jabatans ]);
