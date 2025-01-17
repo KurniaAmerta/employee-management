@@ -20,6 +20,7 @@
     "dependencies": {
         "@inertiajs/inertia": "^0.11.1",
         "datatables.net": "^2.2.1",
-        "datatables.net-dt": "^2.2.1"
+        "datatables.net-dt": "^2.2.1",
+        "vue-multiselect": "^3.1.0"
     }
 }

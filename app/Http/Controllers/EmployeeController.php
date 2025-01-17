@@ -42,6 +42,12 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        $jabatans = array_filter($request->jabatans, function($jabatan) {
+            return !empty($jabatan);
+        });
+
+        $request->merge(['jabatans' => $jabatans]);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|unique:employees,username|max:255',
@@ -60,12 +66,11 @@ class EmployeeController extends Controller
             'unit_id' => $request->unit_id,
         ]);
 
-        if ($request->has('jabatans')) {
-            $employee->jabatans()->attach($request->jabatans);
+        if (!empty($jabatans)) {
+            $employee->jabatans()->attach($jabatans);
         }
 
         session()->flash('success', 'Employee created successfully!');
-
         return redirect()->route('employee.index');
     }
 
@@ -89,7 +94,12 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request->all());
+        $jabatans = array_filter($request->jabatans, function($jabatan) {
+            return !empty($jabatan);
+        });
+
+        $request->merge(['jabatans' => $jabatans]);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:employees,username,' . $id,
@@ -110,8 +120,8 @@ class EmployeeController extends Controller
             'password' => $request->password ? bcrypt($request->password) : $employee->password,
         ]);
 
-        if ($request->has('jabatans')) {
-            $employee->jabatans()->sync($request->jabatans);
+        if (!empty($jabatans)) {
+            $employee->jabatans()->sync($jabatans);
         }
 
         session()->flash('success', 'Employee updated successfully!');
