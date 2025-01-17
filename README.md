@@ -1,4 +1,6 @@
 ![Alt text](employee-management.png)
+![Alt text](dashboard.png)
+![Alt text](employee.png)
 
 # Employee Management
 
