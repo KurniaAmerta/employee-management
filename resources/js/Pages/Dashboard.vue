@@ -1,12 +1,31 @@
+
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { usePage } from '@inertiajs/vue3';
+    import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+    import { ref } from 'vue';
+    import { Inertia } from '@inertiajs/inertia';
+    import { usePage } from '@inertiajs/vue3';
 
-const { totalEmployees, totalLogins, totalUnits, totalJabatans, topEmployees } = usePage().props;
+    const { totalEmployees, totalLogins, totalUnits, totalJabatans, topEmployees } = usePage().props;
 
-function formatDate(date) {
-    return new Date(date).toLocaleDateString();
-}
+    const startDate = ref('');
+    const endDate = ref('');
+
+    function formatDate(date) {
+        return new Date(date).toLocaleDateString();
+    }
+
+    function filterTopEmployees() {
+        Inertia.get('/dashboard', {
+            start_date: startDate.value,
+            end_date: endDate.value,
+        }, { preserveState: true });
+    }
+
+    function clearFilter() {
+        startDate.value = '';
+        endDate.value = '';
+        Inertia.get('/dashboard', {}, { preserveState: true });
+    }
 </script>
 
 <template>
@@ -19,6 +38,32 @@ function formatDate(date) {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="flex mb-6">
+                    <input 
+                        type="date" 
+                        v-model="startDate" 
+                        class="border rounded px-4 py-2"
+                    />
+                    <span class="mx-2">to</span>
+                    <input 
+                        type="date" 
+                        v-model="endDate" 
+                        class="border rounded px-4 py-2"
+                    />
+                    <button 
+                        @click="filterTopEmployees"
+                        class="bg-blue-500 text-white rounded px-4 py-2 ml-4"
+                    >
+                        Filter
+                    </button>
+                    <button 
+                        @click="clearFilter"
+                        class="bg-gray-300 text-gray-800 rounded px-4 py-2 ml-4"
+                    >
+                        Clear Filter
+                    </button>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="bg-blue-100 p-6 rounded-lg shadow-lg">
                         <h3 class="text-lg font-semibold text-blue-800">Total Employees</h3>
