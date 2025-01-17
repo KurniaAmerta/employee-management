@@ -12,7 +12,7 @@
     onMounted(() => {
         const table = new DataTable('#employees', {
             responsive: true,
-            order: [[2, 'desc']],
+            order: [[2, 'asc']],
             pageLength: 10,
         });
     });
